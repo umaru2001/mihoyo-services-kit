@@ -6,6 +6,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "lint": "sh infra/scripts/lint.sh"
+  },
   "devDependencies": {
     "@dragon-fish/bump": "^0.0.15",
     "@types/chai": "^4.2.22",

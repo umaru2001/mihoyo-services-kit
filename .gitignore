@@ -109,3 +109,4 @@ secret*.*
 dev/
 !*.sample.*
 .vscode/
+.history
