@@ -1,4 +1,4 @@
-import { Character } from './Character'
+import { Character } from './Character';
 
 export interface UserInfo {
   role: Character[] | null

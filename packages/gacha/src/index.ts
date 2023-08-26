@@ -12,17 +12,17 @@ import {
   AppWishResult,
   OfficialGachaType,
   AppGachaItem,
-} from './types'
-import { getOfficialGachaPool, poolStructureConverter } from './util'
-export * from './types'
-export * as util from './util'
+} from './types';
+import { getOfficialGachaPool, poolStructureConverter } from './util';
+export * from './types';
+export * as util from './util';
 
 function randomNum(): number {
-  return Math.random()
+  return Math.random();
 }
 
 function randomPick(list: any[]) {
-  return list[Math.floor(Math.random() * list.length)]
+  return list[Math.floor(Math.random() * list.length)];
 }
 
 export class GenshinGachaKit {
@@ -33,7 +33,7 @@ export class GenshinGachaKit {
   constructor(gachaPool?: AppGachaPool) {
     // Init gacha pool
     if (gachaPool) {
-      this.setGachaPool(gachaPool)
+      this.setGachaPool(gachaPool);
     }
     // Init counter
     this.setCounter({
@@ -47,14 +47,14 @@ export class GenshinGachaKit {
       upSR: [],
       ssr: [],
       sr: [],
-    })
+    });
 
     // Init result
     this.setResult({
       ssr: [],
       sr: [],
       r: [],
-    })
+    });
   }
 
   /**
@@ -63,42 +63,42 @@ export class GenshinGachaKit {
    * @return {this}
    */
   setGachaPool(gachaPool: AppGachaPool): this {
-    this._gachaPool = gachaPool
-    return this
+    this._gachaPool = gachaPool;
+    return this;
   }
 
   async setOfficialGachaPool(type: keyof OfficialGachaType): Promise<this> {
-    const pool = await getOfficialGachaPool(type)
+    const pool = await getOfficialGachaPool(type);
     if (pool) {
-      this.setGachaPool(poolStructureConverter(pool))
+      this.setGachaPool(poolStructureConverter(pool));
     } else {
-      throw 'No such pool'
+      throw 'No such pool';
     }
 
-    return this
+    return this;
   }
 
   setCounter(name: keyof AppCounter | AppCounter, value?: any) {
-    this._counter = this._counter || {}
+    this._counter = this._counter || {};
     if (typeof name === 'string' && typeof value !== 'undefined') {
-      this._counter[name] = value
+      this._counter[name] = value;
     } else if (typeof name === 'object') {
       this._counter = {
         ...this._counter,
         ...name,
-      }
+      };
     }
-    return this
+    return this;
   }
 
   increaseCounter(name: keyof AppCounter, increase = 1): this {
-    const value = this.getCounter(name)
+    const value = this.getCounter(name);
     if (typeof value === 'number') {
-      this.setCounter(name, value + increase)
+      this.setCounter(name, value + increase);
     } else if (value.constructor.name.toLowerCase() === 'array') {
-      this.setCounter(name, [...(value as number[]), increase])
+      this.setCounter(name, [...(value as number[]), increase]);
     }
-    return this
+    return this;
   }
 
   clearCounter() {
@@ -113,8 +113,8 @@ export class GenshinGachaKit {
       upSR: [],
       ssr: [],
       sr: [],
-    })
-    return this
+    });
+    return this;
   }
 
   /**
@@ -133,7 +133,7 @@ export class GenshinGachaKit {
    * @return {number | number[] | AppCounter}
    */
   getCounter(name?: keyof AppCounter): number | number[] | AppCounter {
-    return name ? this._counter?.[name] || 0 : this._counter
+    return name ? this._counter?.[name] || 0 : this._counter;
   }
 
   setResult(
@@ -141,23 +141,23 @@ export class GenshinGachaKit {
     value?: AppGachaItem[]
   ): this {
     if (typeof type === 'string' && typeof value !== 'undefined') {
-      this._result[type] = value
+      this._result[type] = value;
     } else {
-      this._result = type as AppWishResult
+      this._result = type as AppWishResult;
     }
-    return this
+    return this;
   }
 
   increaseResult(type: keyof AppWishResult, item: AppGachaItem) {
-    const oldResult = this.getResult(type) as AppGachaItem[]
-    const sameItem = oldResult.filter((i) => i.name === item.name)
+    const oldResult = this.getResult(type) as AppGachaItem[];
+    const sameItem = oldResult.filter((i) => i.name === item.name);
     if (sameItem.length < 1) {
-      item.count = 1
-      this.setResult(type, [...oldResult, item])
+      item.count = 1;
+      this.setResult(type, [...oldResult, item]);
     } else {
-      sameItem[0].count && sameItem[0].count++
+      sameItem[0].count && sameItem[0].count++;
     }
-    return this
+    return this;
   }
 
   clearResult() {
@@ -165,8 +165,8 @@ export class GenshinGachaKit {
       ssr: [],
       sr: [],
       r: [],
-    })
-    return this
+    });
+    return this;
   }
 
   /**
@@ -175,7 +175,7 @@ export class GenshinGachaKit {
    * @returns
    */
   getResult(type?: keyof AppWishResult): AppWishResult | AppGachaItem[] {
-    return type ? this._result?.[type] || [] : this._result
+    return type ? this._result?.[type] || [] : this._result;
   }
 
   /**
@@ -191,28 +191,28 @@ export class GenshinGachaKit {
     turningPoint,
     hardEnsure,
   }: SpecialRoll): 0 | 1 | 2 {
-    let chance = 0
-    const more = (1 - baseChance) / (softEnsure - turningPoint)
+    let chance = 0;
+    const more = (1 - baseChance) / (softEnsure - turningPoint);
     if (lastCount <= turningPoint) {
-      chance = baseChance
+      chance = baseChance;
     } else {
-      chance = baseChance + more * (lastCount - turningPoint)
+      chance = baseChance + more * (lastCount - turningPoint);
     }
     if (chance >= randomNum()) {
       if (randomNum() >= upChance || hardEnsure) {
-        return 2
+        return 2;
       }
-      return 1
+      return 1;
     }
-    return 0
+    return 0;
   }
 
   rollSSR(ensure: boolean): 0 | 1 | 2 {
-    this.increaseCounter('lastSSR')
-    this.increaseCounter('lastUpSSR')
+    this.increaseCounter('lastSSR');
+    this.increaseCounter('lastUpSSR');
 
-    const count = this.getCounter('lastSSR') as number
-    const upCount = this.getCounter('lastUpSSR') as number
+    const count = this.getCounter('lastSSR') as number;
+    const upCount = this.getCounter('lastUpSSR') as number;
 
     const result = this._generateRoll({
       lastCount: count,
@@ -221,25 +221,25 @@ export class GenshinGachaKit {
       softEnsure: 90,
       turningPoint: 72,
       hardEnsure: ensure,
-    })
+    });
     if (result === 1) {
-      this.setCounter('ensureSSR', 1)
+      this.setCounter('ensureSSR', 1);
     }
     if (result === 2) {
-      this.setCounter('ensureSSR', 0)
-      this.increaseCounter('upSSR', upCount)
-      this.setCounter('lastUpSSR', 0)
+      this.setCounter('ensureSSR', 0);
+      this.increaseCounter('upSSR', upCount);
+      this.setCounter('lastUpSSR', 0);
     }
     if (result > 0) {
-      this.increaseCounter('ssr', count)
-      this.setCounter('lastSSR', 0)
+      this.increaseCounter('ssr', count);
+      this.setCounter('lastSSR', 0);
     }
-    return result
+    return result;
   }
 
   rollSR(): 0 | 1 | 2 {
-    this.increaseCounter('lastSR')
-    this.increaseCounter('lastUpSR')
+    this.increaseCounter('lastSR');
+    this.increaseCounter('lastUpSR');
 
     const result = this._generateRoll({
       lastCount: this.getCounter('lastSR') as number,
@@ -248,16 +248,16 @@ export class GenshinGachaKit {
       softEnsure: 10,
       hardEnsure: false,
       turningPoint: 7,
-    })
+    });
     if (result === 2) {
-      this.increaseCounter('upSR', this.getCounter('lastUpSR') as number)
-      this.setCounter('lastUpSR', 0)
+      this.increaseCounter('upSR', this.getCounter('lastUpSR') as number);
+      this.setCounter('lastUpSR', 0);
     }
     if (result > 0) {
-      this.increaseCounter('sr', this.getCounter('lastSR') as number)
-      this.setCounter('lastSR', 0)
+      this.increaseCounter('sr', this.getCounter('lastSR') as number);
+      this.setCounter('lastSR', 0);
     }
-    return result
+    return result;
   }
 
   /**
@@ -265,50 +265,50 @@ export class GenshinGachaKit {
    * @return {AppGachaItem} 抽取结果
    */
   singleWish(): AppGachaItem {
-    this.increaseCounter('total')
+    this.increaseCounter('total');
 
     const getSSR = (isUP: boolean) => {
       if (this._gachaPool.upSSR.length < 1) {
-        this._gachaPool.upSSR = this._gachaPool.ssr
+        this._gachaPool.upSSR = this._gachaPool.ssr;
       }
       const character = randomPick(
         isUP ? this._gachaPool.upSSR : this._gachaPool.ssr
-      ) as AppGachaItem
-      character.rarity = 5
-      this.increaseResult('ssr', character)
+      ) as AppGachaItem;
+      character.rarity = 5;
+      this.increaseResult('ssr', character);
 
-      return character
-    }
+      return character;
+    };
 
     const getSR = (isUP: boolean) => {
       if (this._gachaPool.upSR.length < 1) {
-        this._gachaPool.upSR = this._gachaPool.sr
+        this._gachaPool.upSR = this._gachaPool.sr;
       }
       const character = randomPick(
         isUP ? this._gachaPool.upSR : this._gachaPool.sr
-      ) as AppGachaItem
-      character.rarity = 4
-      this.increaseResult('sr', character)
+      ) as AppGachaItem;
+      character.rarity = 4;
+      this.increaseResult('sr', character);
 
-      return character
-    }
+      return character;
+    };
     const getR = () => {
-      const character = randomPick(this._gachaPool.r) as AppGachaItem
-      character.rarity = 3
-      this.increaseResult('r', character)
+      const character = randomPick(this._gachaPool.r) as AppGachaItem;
+      character.rarity = 3;
+      this.increaseResult('r', character);
 
-      return character
-    }
+      return character;
+    };
 
-    const isSSR = this.rollSSR(Boolean(this.getCounter('ensureSSR')))
+    const isSSR = this.rollSSR(Boolean(this.getCounter('ensureSSR')));
     if (isSSR > 0) {
-      return getSSR(isSSR === 2)
+      return getSSR(isSSR === 2);
     } else {
-      const isSR = this.rollSR()
+      const isSR = this.rollSR();
       if (isSR > 0) {
-        return getSR(isSR === 2)
+        return getSR(isSR === 2);
       } else {
-        return getR()
+        return getR();
       }
     }
   }
@@ -319,10 +319,10 @@ export class GenshinGachaKit {
    * @return {AppGachaItem[]} 结果集合
    */
   multiWish(count: number): AppGachaItem[] {
-    const result: AppGachaItem[] = []
+    const result: AppGachaItem[] = [];
     for (let i = 0; i < count; i++) {
-      result.push(this.singleWish())
+      result.push(this.singleWish());
     }
-    return result
+    return result;
   }
 }

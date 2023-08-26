@@ -1,2 +1,2 @@
-export * from './App'
-export * from './GachaPool'
+export * from './App';
+export * from './GachaPool';

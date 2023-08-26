@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { AppServerLocale } from '../types'
+import axios from 'axios';
+import { AppServerLocale } from '../types';
 
 interface GachaInfoI18nData {
   item_id: string
@@ -15,7 +15,7 @@ export async function getAllIds(
     await axios.get(
       `https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01/items/${lang}.json`
     )
-  ).data
+  ).data;
 }
 
 function filter(data: GachaInfoI18nData[], names: string[]) {
@@ -27,15 +27,15 @@ function filter(data: GachaInfoI18nData[], names: string[]) {
         name,
         item_type,
         rank_type,
-      }
-    })
+      };
+    });
 }
 
 export async function getCharacterIds(
   lang?: AppServerLocale
 ): Promise<GachaInfoI18nData[]> {
-  const data = await getAllIds(lang)
-  const characters = filter(data, ['角色'])
+  const data = await getAllIds(lang);
+  const characters = filter(data, ['角色']);
   return [
     {
       item_id: '10000007',
@@ -44,5 +44,5 @@ export async function getCharacterIds(
       rank_type: '5',
     },
     ...characters,
-  ]
+  ];
 }

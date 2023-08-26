@@ -2,27 +2,27 @@ export class CharacterNickname {
   _nicknameList: NicknameList[]
 
   constructor() {
-    this._nicknameList = defaultList
+    this._nicknameList = defaultList;
   }
 
   addNicknames(id: number, nicknames: string[]) {
     if (!this._nicknameList.find(({ id: id1 }) => id1 === id)) {
-      this._nicknameList.push({ id, nicknames: [] })
+      this._nicknameList.push({ id, nicknames: [] });
     }
-    const index = this._nicknameList.findIndex(({ id: id1 }) => id1 === id)
-    this._nicknameList[index].nicknames.push(...nicknames)
-    return this
+    const index = this._nicknameList.findIndex(({ id: id1 }) => id1 === id);
+    this._nicknameList[index].nicknames.push(...nicknames);
+    return this;
   }
 
   getIdByNickname(keyword: string) {
-    keyword = keyword.toLowerCase().replace(/\s+/g, '')
+    keyword = keyword.toLowerCase().replace(/\s+/g, '');
     return this._nicknameList.find(({ nicknames }) =>
       nicknames.includes(keyword)
-    )?.id
+    )?.id;
   }
 
   getNicknamesById(id: number) {
-    return this._nicknameList.find(({ id: id1 }) => id1 === id)?.nicknames
+    return this._nicknameList.find(({ id: id1 }) => id1 === id)?.nicknames;
   }
 }
 
@@ -312,4 +312,4 @@ const defaultList: NicknameList[] = [
     id: 10000062,
     nicknames: ['埃洛伊', 'aloy', 'ailuoyi'],
   },
-]
+];

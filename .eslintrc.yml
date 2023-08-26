@@ -13,9 +13,7 @@ extends:
 - 'prettier'
 rules:
   indent: ['error', 2, { SwitchCase: 1 }]
-  linebreak-style: ['warn', 'windows']
   quotes: ['error', 'single']
-  semi: ['error', 'never']
-  # 别警告 any 了我就是要写你咋地吧
+  semi: ['warn', 'always']
   '@typescript-eslint/no-explicit-any': 0
   '@typescript-eslint/explicit-module-boundary-types': 0

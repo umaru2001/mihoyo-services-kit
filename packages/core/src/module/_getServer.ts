@@ -7,18 +7,18 @@ export function _getServer(uid: number): string {
   switch (String(uid)[0]) {
     case '1':
     case '2':
-      return 'cn_gf01'
+      return 'cn_gf01';
     case '5':
-      return 'cn_qd01'
+      return 'cn_qd01';
     case '6':
-      return 'os_usa'
+      return 'os_usa';
     case '7':
-      return 'os_euro'
+      return 'os_euro';
     case '8':
-      return 'os_asia'
+      return 'os_asia';
     case '9':
-      return 'os_cht'
+      return 'os_cht';
     default:
-      throw { code: -1, message: 'Invalid uid' }
+      throw { code: -1, message: 'Invalid uid' };
   }
 }

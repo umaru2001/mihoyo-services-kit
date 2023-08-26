@@ -1,4 +1,4 @@
-import { Abyss, Character, DailyNote, UserInfo } from './index'
+import { Abyss, Character, DailyNote, UserInfo } from './index';
 
 export type AppCache = {
   [K in number]: {

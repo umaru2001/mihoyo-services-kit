@@ -1,4 +1,4 @@
-import axios, { Method } from 'axios'
+import axios, { Method } from 'axios';
 
 /**
  * @param path The function will use `${apiEndpoint}/${path}` as the request url, unless `path` starts with `http`
@@ -9,11 +9,11 @@ export async function request(
   path: string,
   data?: any
 ) {
-  let query, body
+  let query, body;
   if (method.toLowerCase() === 'get') {
-    query = data
+    query = data;
   } else {
-    body = data
+    body = data;
   }
 
   return (
@@ -25,5 +25,5 @@ export async function request(
       params: query,
       ...(this.serverType === 'os' ? { withCredentials: true } : {}),
     })
-  ).data as any
+  ).data as any;
 }

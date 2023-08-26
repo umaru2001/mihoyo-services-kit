@@ -2,39 +2,39 @@
  * @method CharactersFilter
  * @param {Object} avatars UserRoles.data.avatars
  */
-import { CharacterNickname } from '.'
-import { Character } from '../types/Character'
+import { CharacterNickname } from '.';
+import { Character } from '../types/Character';
 
 export class CharactersFilter {
   _list: Character[] = []
   nicknameFilter: CharacterNickname
 
   constructor(avatars: Character[]) {
-    this._list = avatars
-    this.nicknameFilter = new CharacterNickname()
+    this._list = avatars;
+    this.nicknameFilter = new CharacterNickname();
   }
 
   /**
    * @function name 通过名称或id获取玩家指定角色的信息
    */
   name(nameFind: string): Character | undefined {
-    const id = this.nicknameFilter.getIdByNickname(nameFind)
+    const id = this.nicknameFilter.getIdByNickname(nameFind);
     if (id) {
-      return this.id(id)
+      return this.id(id);
     }
 
-    return this._list.find(({ name }) => name === nameFind)
+    return this._list.find(({ name }) => name === nameFind);
   }
 
   id(idFind: number) {
-    return this._list.find(({ id }) => id === idFind)
+    return this._list.find(({ id }) => id === idFind);
   }
 
   /**
    * @function element 通过指定元素筛选玩家的角色
    */
   element(el: string): Character[] {
-    el = el.toLocaleLowerCase()
+    el = el.toLocaleLowerCase();
 
     // 中文名转换
     const elAlias: Record<string, string> = {
@@ -52,10 +52,10 @@ export class CharactersFilter {
       rock: 'geo',
       草: 'dendro',
       grass: 'dendro',
-    }
-    el = elAlias[el] || el
+    };
+    el = elAlias[el] || el;
 
-    return this._list.filter(({ element }) => element.toLowerCase() === el)
+    return this._list.filter(({ element }) => element.toLowerCase() === el);
   }
 
   /**
@@ -64,20 +64,20 @@ export class CharactersFilter {
    */
   rarity(rarity: number | number[]): Character[] {
     // 缓存
-    let queryRarity: number[] = []
+    let queryRarity: number[] = [];
     if (typeof rarity === 'number') {
-      queryRarity = [rarity]
+      queryRarity = [rarity];
     } else if (rarity.constructor !== Array) {
-      return []
+      return [];
     }
 
-    return this._list.filter(({ rarity }) => queryRarity.includes(rarity))
+    return this._list.filter(({ rarity }) => queryRarity.includes(rarity));
   }
 
   /**
    * @function all
    */
   all(): Character[] {
-    return this._list
+    return this._list;
   }
 }

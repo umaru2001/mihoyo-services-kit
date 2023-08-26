@@ -1,2 +1,2 @@
-export * from './getGachaData'
-export * from './poolStructureConverter'
+export * from './getGachaData';
+export * from './poolStructureConverter';

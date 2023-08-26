@@ -1,4 +1,4 @@
-import { AppGachaItem } from './App'
+import { AppGachaItem } from './App';
 
 // GenshinGachaKit 卡池数据
 export interface AppGachaPool {

@@ -18,7 +18,7 @@ export function _getHttpHeaders(this: any, { query, body }: any): any {
         'User-Agent':
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
         Cookie: this.cookie,
-      }
+      };
     case 'cn':
     default:
       return {
@@ -34,6 +34,6 @@ export function _getHttpHeaders(this: any, { query, body }: any): any {
         'X-Requested-With': 'com.mihoyo.hyperion',
         Accept: 'application/json, text/plain, */*',
         Cookie: this.cookie,
-      }
+      };
   }
 }
