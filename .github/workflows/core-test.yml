@@ -2,12 +2,12 @@ name: Unit test for @genshin-kit/core
 on:
   push:
     branches: [master,dev,actions]
-    paths: 
+    paths:
       - '.github/workflows/**'
       - 'packages/core/**'
   pull_request:
     branches: [master,dev,actions]
-    paths: 
+    paths:
       - '.github/workflows/**'
       - 'packages/core/**'
 
@@ -19,9 +19,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Checkout 
+    - name: Checkout
       uses: actions/checkout@v2
-      
+
     - name: Set Node Version
       uses: actions/setup-node@v2
 
